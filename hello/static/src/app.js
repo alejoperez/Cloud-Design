@@ -29,8 +29,8 @@
                 controllerAs: 'ctrl'
             })
             .when('/register', {
-                templateUrl: 'static/src/modules/independents/registration.tpl.html',
-                controller: 'independentsCtrl',
+                templateUrl: 'static/src/modules/manager/registration.tpl.html',
+                controller: 'managerCtrl',
                 controllerAs: 'ctrl'
             })
             .when('/comments/:idIndependent', {
