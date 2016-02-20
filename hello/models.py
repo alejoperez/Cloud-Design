@@ -17,9 +17,3 @@ class Independent(models.Model):
     imageFileUrl = models.CharField(max_length=1000,blank=True,default='')
     user = models.OneToOneField(User,null=True)
     job = models.ForeignKey(Job,null=True)
-
-class Comment(models.Model):
-    independent = models.ForeignKey(Independent,null=True)
-    comment = models.CharField(max_length=1000,blank=True)
-    userEmail = models.CharField(max_length=50,blank=True)
-    created = models.DateTimeField(auto_now_add=True)
