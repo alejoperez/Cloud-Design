@@ -16,6 +16,7 @@ class Administrator(models.Model):
 class Proyecto(models.Model):
     name = models.CharField(max_length=50,blank=True)
     description = models.CharField(max_length=250,blank=True)
+    image = models.CharField(max_length=500,blank=True)
     estimated_price = models.BigIntegerField
 
 class Designer(models.Model):

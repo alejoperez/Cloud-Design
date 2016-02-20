@@ -8,6 +8,7 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from models import Proyecto
 from models import Administrator
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import json
 
 
@@ -27,12 +28,50 @@ def createProject(request):
         proyecto = Proyecto()
         proyecto.name = jsonProject.get('name')
         proyecto.description = jsonProject.get('description')
+        proyecto.image = jsonProject.get('image')
         proyecto.estimated_price= jsonProject.get('estimatedPrice')
         proyecto.save()
 
         return HttpResponse(serializers.serialize("json",{proyecto}))
 
-@csrf_exempt
+    if request.method == 'GET':
+        proyecto = Proyecto.objects.all()
+        paginator = Paginator(proyecto, 10) # Show 25 contacts per page
+
+        page = request.GET.get('page')
+        try:
+            proyectos = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            proyectos = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            proyectos = paginator.page(paginator.num_pages)
+        data =serializers.serialize("json",proyectos.object_list)
+
+        return JsonResponse({"proyectos":data,"numeroPaginas":paginator.num_pages})
+
+    if request.method == 'PUT':
+        jsonProject = json.loads(request.body.decode('utf-8'))
+
+        proyecto = Proyecto.objects.get(pk=jsonProject.get('pk'))
+        proyecto.name = jsonProject.get('name')
+        proyecto.description = jsonProject.get('description')
+        proyecto.estimated_price= jsonProject.get('estimatedPrice')
+        proyecto.image = jsonProject.get('image')
+        proyecto.save()
+
+        return HttpResponse(serializers.serialize("json",{proyecto}))
+
+    if request.method == 'DELETE':
+            jsonProject = json.loads(request.body.decode('utf-8'))
+
+            proyecto = Proyecto.objects.get(pk=jsonProject.get('pk'))
+            proyecto.delete()
+
+            return HttpResponse(serializers.serialize("json",""))
+
+    @csrf_exempt
 def registerManager(request):
     if request.method == 'POST':
         objs = json.loads(request.body)
@@ -71,6 +110,8 @@ def registerManager(request):
 
 
     return HttpResponse(status=200)
+
+
 
 '''
 @csrf_exempt
