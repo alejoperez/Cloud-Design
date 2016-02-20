@@ -71,7 +71,7 @@ def createProject(request):
 
             return HttpResponse(serializers.serialize("json",""))
 
-    @csrf_exempt
+@csrf_exempt
 def registerManager(request):
     if request.method == 'POST':
         objs = json.loads(request.body)
