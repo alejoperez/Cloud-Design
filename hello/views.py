@@ -59,6 +59,14 @@ def createProject(request):
 
         return HttpResponse(serializers.serialize("json",{proyecto}))
 
+    if request.method == 'DELETE':
+            jsonProject = json.loads(request.body.decode('utf-8'))
+
+            proyecto = Proyecto.objects.get(pk=jsonProject.get('pk'))
+            proyecto.delete()
+
+            return HttpResponse(serializers.serialize("json",""))
+
 
 '''
 @csrf_exempt
