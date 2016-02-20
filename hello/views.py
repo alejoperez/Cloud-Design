@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
 from django.core.mail import send_mail, EmailMultiAlternatives
 from models import Proyecto
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import json
 
 
@@ -29,6 +30,23 @@ def createProject(request):
         proyecto.save()
 
         return HttpResponse(serializers.serialize("json",{proyecto}))
+
+    if request.method == 'GET':
+        proyecto = Proyecto.objects.all()
+        paginator = Paginator(proyecto, 10) # Show 25 contacts per page
+
+        page = request.GET.get('page')
+        try:
+            proyectos = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            proyectos = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            proyectos = paginator.page(paginator.num_pages)
+        data =serializers.serialize("json",proyectos.object_list)
+        return JsonResponse({"proyectos":data,"numeroPaginas":paginator.num_pages})
+
 
 '''
 @csrf_exempt
