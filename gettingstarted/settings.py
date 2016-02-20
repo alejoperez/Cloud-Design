@@ -78,16 +78,25 @@ WSGI_APPLICATION = 'gettingstarted.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
+#DATABASES = {
+ #   'default': {
+  #      'ENGINE': 'django.db.backends.postgresql_psycopg2',
+   #     'NAME': 'post',
+    #    'USER': 'yydvvdrlvzhjrv',
+     #   'PASSWORD': 'C0gd9FhR6GXjvN_OEL23cULgaZ',
+      #  'HOST': 'ec2-54-83-204-228.compute-1.amazonaws.com',
+      #  'PORT': '5432',
+    #}
+#}
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dacb3prb9oleik',
-        'USER': 'yydvvdrlvzhjrv',
-        'PASSWORD': 'C0gd9FhR6GXjvN_OEL23cULgaZ',
-        'HOST': 'ec2-54-83-204-228.compute-1.amazonaws.com',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -143,10 +152,3 @@ STATICFILES_DIRS = (
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 CORS_ORIGIN_ALLOW_ALL = True
-
-# EMAIL SETTINGS
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'XXX@gmail.com'
-EMAIL_HOST_PASSWORD = 'XXXX'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
