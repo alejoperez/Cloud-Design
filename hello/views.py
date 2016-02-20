@@ -26,6 +26,7 @@ def createProject(request):
         proyecto = Proyecto()
         proyecto.name = jsonProject.get('name')
         proyecto.description = jsonProject.get('description')
+        proyecto.image = jsonProject.get('image')
         proyecto.estimated_price= jsonProject.get('estimatedPrice')
         proyecto.save()
 
@@ -55,6 +56,7 @@ def createProject(request):
         proyecto.name = jsonProject.get('name')
         proyecto.description = jsonProject.get('description')
         proyecto.estimated_price= jsonProject.get('estimatedPrice')
+        proyecto.image = jsonProject.get('image')
         proyecto.save()
 
         return HttpResponse(serializers.serialize("json",{proyecto}))
