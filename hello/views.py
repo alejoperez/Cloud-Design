@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
 from django.core.mail import send_mail, EmailMultiAlternatives
 from models import Proyecto
+from models import Administrator
+
 import json
 
 
@@ -29,6 +31,46 @@ def createProject(request):
         proyecto.save()
 
         return HttpResponse(serializers.serialize("json",{proyecto}))
+
+@csrf_exempt
+def registerManager(request):
+    if request.method == 'POST':
+        objs = json.loads(request.body)
+
+        company = objs['company']
+        password = objs['password']
+        email = objs['email']
+
+
+        userQS = User.objects.filter(username=company)
+        userList = list(userQS[:1])
+        userObject = userList[0]
+        if userObject is None:
+            print 'Paila ya existe el man'
+            return HttpResponse(status=400)
+
+
+        userModel = User.objects.create_user(username=company, password=password)
+        userModel.first_name=company
+        userModel.last_name=company
+        userModel.email=email
+        userModel.save()
+        print 'Se crea el usuario'
+
+        '''
+        userQS = User.objects.filter(username=company)
+        userList = list(userQS[:1])
+        userObject = userList[0]
+        '''
+        manager = Administrator()
+        manager.email=email
+        manager.company=company
+        manager.user=userModel
+        manager.save()
+        print 'Se crea el manager'
+
+
+    return HttpResponse(status=200)
 
 '''
 @csrf_exempt

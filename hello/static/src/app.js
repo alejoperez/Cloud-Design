@@ -2,20 +2,16 @@
 
     var helpApp = ng.module('helpApp', [
         'ngRoute',
-        'independentsModule',
-        'profileModule',
         'mainModule',
-        'loginModule',
-        'commentsModule',
-        'detailModule'
+        'managerModule'
     ]);
 
     helpApp.config(['$routeProvider', function ($routeProvider) {
 
         $routeProvider
             .when('/independents', {
-                templateUrl: 'static/src/modules/independents/independents.tpl.html',
-                controller: 'independentsCtrl',
+                templateUrl: 'static/src/modules/manager/independents.tpl.html',
+                controller: 'managerCtrl',
                 controllerAs: 'ctrl'
             })
             .when('/profile', {
