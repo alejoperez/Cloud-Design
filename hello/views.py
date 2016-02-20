@@ -4,16 +4,16 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
-from .models import Independent, Job, Comment
 from django.core.mail import send_mail, EmailMultiAlternatives
 import json
 
 
 # Create your views here.
+
 @csrf_exempt
 def index(request):
     return render(request, 'index.html')
-
+'''
 @csrf_exempt
 def getIndependents(request):
     independents = Independent.objects.all().order_by('-user__date_joined')
@@ -186,3 +186,4 @@ def detail(request):
         independent.save()
 
     return HttpResponse(serializers.serialize("json",{independent},use_natural_foreign_keys=True, use_natural_primary_keys=True))
+'''
