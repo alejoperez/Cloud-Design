@@ -5,6 +5,7 @@ from django.core import serializers
 from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
 from django.core.mail import send_mail, EmailMultiAlternatives
+from models import Proyecto
 import json
 
 
@@ -13,6 +14,22 @@ import json
 @csrf_exempt
 def index(request):
     return render(request, 'index.html')
+
+
+@csrf_exempt
+def createProject(request):
+
+    if request.method == 'POST':
+        jsonProject = json.loads(request.body.decode('utf-8'))
+
+        proyecto = Proyecto()
+        proyecto.name = jsonProject.get('name')
+        proyecto.description = jsonProject.get('description')
+        proyecto.estimated_price= jsonProject.get('estimatedPrice')
+        proyecto.save()
+
+        return HttpResponse(serializers.serialize("json",{proyecto}))
+
 '''
 @csrf_exempt
 def getIndependents(request):
