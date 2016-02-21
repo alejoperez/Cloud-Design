@@ -5,7 +5,7 @@ from enum import Enum
 
 # Create your models here.
 
-Design_Status = Enum('IN_PROGRESS', 'AVAILABLE')
+Design_Status = ((1,'IN_PROGRESS'), (2,'AVAILABLE'))
 
 
 class Administrator(models.Model):
@@ -28,8 +28,8 @@ class Designer(models.Model):
 
 class Design(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
-    status = Design_Status
-    price = models.BigIntegerField
+    status = models.IntegerField(choices=Design_Status)
+    price = models.BigIntegerField(blank=False, null=False)
     imageFile = models.ImageField(upload_to='images',null=True)
     designer = models.ForeignKey(Designer,null=True)
     project = models.OneToOneField(Proyecto,null=True)
