@@ -12,6 +12,7 @@ class Administrator(models.Model):
     company = models.CharField(max_length=100,blank=True)
     email = models.EmailField(max_length=70,blank=True, null= True, unique= True)
     user = models.OneToOneField(User,null=True)
+    url = models.CharField(max_length=100,blank=True)
 
 class Proyecto(models.Model):
     name = models.CharField(max_length=50,blank=True)
