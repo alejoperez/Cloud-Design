@@ -17,7 +17,7 @@
 
         $routeProvider
             .when('/main', {
-                templateUrl: 'static/src/modules/manager/main.tpl.html',
+                templateUrl: 'static/src/modules/main/main.tpl.html',
                 controller: 'managerCtrl',
                 controllerAs: 'ctrl'
             })
