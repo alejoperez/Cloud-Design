@@ -30,6 +30,7 @@ def createProject(request):
         proyecto.description = jsonProject.get('description')
         proyecto.image = jsonProject.get('image')
         proyecto.estimated_price= jsonProject.get('estimatedPrice')
+        proyecto.administrador = request.user
         proyecto.save()
 
         return HttpResponse(serializers.serialize("json",{proyecto}))

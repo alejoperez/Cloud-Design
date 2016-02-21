@@ -8,7 +8,9 @@
         'loginModule',
         'commentsModule',
         'detailModule',
-        'projectModule'
+        'projectModule',
+        'createModule'
+
     ]);
 
     helpApp.config(['$routeProvider', function ($routeProvider) {
@@ -47,6 +49,11 @@
             .when('/project', {
                 templateUrl: 'static/src/modules/project/project.tpl.html',
                 controller: 'projectCtrl',
+                controllerAs: 'ctrl'
+            })
+            .when('/create', {
+                templateUrl: 'static/src/modules/create/create.tpl.html',
+                controller: 'createCtrl',
                 controllerAs: 'ctrl'
             })
             .otherwise('/independents');
