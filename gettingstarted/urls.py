@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^islogged', hello.views.isLoggedUser, name='isLoggedUser'),
     url(r'^logout', hello.views.logoutUser, name='logout'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^design', hello.views.createDesign, name='design'),
 ]
