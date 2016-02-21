@@ -17,7 +17,7 @@
 
         $routeProvider
             .when('/main', {
-                templateUrl: 'static/src/modules/manager/independents.tpl.html',
+                templateUrl: 'static/src/modules/manager/main.tpl.html',
                 controller: 'managerCtrl',
                 controllerAs: 'ctrl'
             })
@@ -56,7 +56,7 @@
                 controller: 'createCtrl',
                 controllerAs: 'ctrl'
             })
-            .otherwise('/independents');
+            .otherwise('/main');
 
 
 
