@@ -32,4 +32,4 @@ class Design(models.Model):
     price = models.BigIntegerField(blank=False, null=False)
     imageFile = models.ImageField(upload_to='images',null=True)
     designer = models.ForeignKey(Designer,null=True)
-    project = models.OneToOneField(Proyecto,null=True)
+    project = models.ForeignKey(Proyecto,null=True)
