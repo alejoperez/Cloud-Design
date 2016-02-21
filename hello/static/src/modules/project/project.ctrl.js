@@ -10,11 +10,22 @@
         this.getProjects = function () {
             return projectService.getProjects().then(function (response) {
                 $scope.projects = response.data;
-                console.log("asadasda"+response.data);
             }, responseError);
         };
 
+        $scope.edit = function(taskId){
+         console.log("Task Id is "+taskId);
+            $scope.objeto = taskId
+             $scope.objeto = {
+            name: taskId.name,
+            image:taskId.image,
+            description:taskId.description,
 
+        };
+
+            window.location.assign('#/edit');
+
+        };
 
     }]);
 })(window.angular);

@@ -12,7 +12,17 @@
                 </div>
                 <div class="caption" >
                     <p><strong>Descripción:</strong> {{record.fields.description}}</p>
-                    <button type="button" class="btn btn-primary">Ver Diseños</button>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-info" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Más <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a href="#">Ver Diseños</a></li>
+                        <li><a href="#edit"  ng-click="edit(record.fields);">Editar</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Eliminar</a></li>
+                      </ul>
+                    </div>
                 </div>
             </div>
         </div>

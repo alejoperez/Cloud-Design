@@ -9,7 +9,8 @@
         'commentsModule',
         'detailModule',
         'projectModule',
-        'createModule'
+        'createModule',
+        'editModule'
 
     ]);
 
@@ -54,6 +55,11 @@
             .when('/create', {
                 templateUrl: 'static/src/modules/create/create.tpl.html',
                 controller: 'createCtrl',
+                controllerAs: 'ctrl'
+            })
+             .when('/edit', {
+                templateUrl: 'static/src/modules/edit/edit.tpl.html',
+                controller: 'editCtrl',
                 controllerAs: 'ctrl'
             })
             .otherwise('/main');
