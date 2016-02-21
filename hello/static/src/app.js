@@ -14,9 +14,9 @@
     helpApp.config(['$routeProvider', function ($routeProvider) {
 
         $routeProvider
-            .when('/independents', {
-                templateUrl: 'static/src/modules/manager/independents.tpl.html',
-                controller: 'managerCtrl',
+            .when('/main', {
+                templateUrl: 'static/src/modules/main/main.tpl.html',
+                controller: 'mainCtrl',
                 controllerAs: 'ctrl'
             })
             .when('/profile', {
@@ -49,7 +49,7 @@
                 controller: 'projectCtrl',
                 controllerAs: 'ctrl'
             })
-            .otherwise('/independents');
+            .otherwise('/main');
 
 
 

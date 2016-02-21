@@ -76,15 +76,14 @@ def registerManager(request):
     if request.method == 'POST':
         objs = json.loads(request.body)
 
-        company = objs['company']
+        company = objs['company'].lower()
         password = objs['password']
         email = objs['email']
 
 
         userQS = User.objects.filter(username=company)
         userList = list(userQS[:1])
-        userObject = userList[0]
-        if userObject is None:
+        if userList:
             print 'Paila ya existe el man'
             return HttpResponse(status=400)
 
@@ -106,10 +105,66 @@ def registerManager(request):
         manager.company=company
         manager.user=userModel
         manager.save()
+
+        manager.url = request.get_raw_uri().replace('register',manager.company+'/'+str(manager.id))
+        manager.save()
         print 'Se crea el manager'
 
 
     return HttpResponse(status=200)
+
+@csrf_exempt
+def loginUser(request):
+    message = ''
+
+    if request.method == 'POST':
+        jsonUser = json.loads(request.body.decode('utf-8'))
+        username = jsonUser.get('username')
+        password = jsonUser.get('password')
+
+        user = authenticate(username=username,password=password)
+
+        if user is not None:
+            login(request,user)
+            message = 'OK'
+            print 'El man se logeo'
+        else:
+            message = 'Usuario y/o clave invalida'
+            print 'Paila el man no se logeo'
+
+    return JsonResponse({'message':message})
+
+@csrf_exempt
+def loginUser(request):
+    message = ''
+
+    if request.method == 'POST':
+        jsonUser = json.loads(request.body.decode('utf-8'))
+        username = jsonUser.get('username')
+        password = jsonUser.get('password')
+
+        user = authenticate(username=username,password=password)
+
+        if user is not None:
+            login(request,user)
+            message = 'OK'
+        else:
+            message = 'Usuario y/o clave invalida'
+
+    return JsonResponse({'message':message})
+
+@csrf_exempt
+def isLoggedUser(request):
+    if request.user.is_authenticated():
+        logged = True
+    else:
+        logged = False
+    return JsonResponse({'logged':logged})
+
+@csrf_exempt
+def logoutUser(request):
+    logout(request)
+    return JsonResponse({'logout':True})
 
 
 

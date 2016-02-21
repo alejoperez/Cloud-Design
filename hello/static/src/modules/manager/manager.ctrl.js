@@ -3,7 +3,13 @@
 
     mod.controller('managerCtrl', ['$scope', 'managerService', '$window', function ($scope, managerService, $window) {
 
+        $scope.passwordMatchError=false;
+        $scope.userExists=false;
+
         function responseError(response) {
+            if(response.status==400){
+                $scope.userExists=true;
+            }
             console.log(response);
         }
 
@@ -16,7 +22,7 @@
 
         this.registerManager = function(){
             if(angular.element('#password').val() != angular.element('#confirm_password').val()){
-                $window.alert("The password fields don't match");
+                $scope.passwordMatchError=true;
                 return;
             }
             return managerService.registerManager({
