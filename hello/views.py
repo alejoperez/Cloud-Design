@@ -23,17 +23,20 @@ def index(request):
 def createProject(request):
 
     if request.method == 'POST':
-        jsonProject = json.loads(request.body.decode('utf-8'))
 
-        proyecto = Proyecto()
-        proyecto.name = jsonProject.get('name')
-        proyecto.description = jsonProject.get('description')
-        proyecto.image = jsonProject.get('image')
-        proyecto.estimated_price= jsonProject.get('estimatedPrice')
-        proyecto.administrador = request.user
-        proyecto.save()
+     jsonProject = json.loads(request.body)
+     proyecto = Proyecto()
+     print str("Entro ")
 
-        return HttpResponse(serializers.serialize("json",{proyecto}))
+     print str("pasooooo ")
+
+     proyecto.name = jsonProject['name']
+     proyecto.description = jsonProject['description']
+     proyecto.image = jsonProject['image']
+     proyecto.estimated_price= jsonProject['estimatedPrice']
+     proyecto.administrador = request.user
+     proyecto.save()
+     return HttpResponse(serializers.serialize("json",{proyecto}))
 
     if request.method == 'GET':
         proyecto = Proyecto.objects.all()

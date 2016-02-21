@@ -10,12 +10,12 @@
             console.log(response);
         }
 
-          this.registerManager = function(){
+          this.registerProject = function(){
             return createService.registerProject({
-                'nombre':angular.element('#nombre').val(),
-                'descripcion':angular.element('#descripcion').val(),
-                'precio':angular.element('#precio').val(),
-                'imagen':angular.element('#imagen').val()
+                'name':angular.element('#name').val(),
+                'description':angular.element('#description').val(),
+                'estimatedPrice':angular.element('#estimatedPrice').val(),
+                'image':angular.element('#image').val()
 
             }).then(function (response) {
                 $window.location.href = '/#/project';
