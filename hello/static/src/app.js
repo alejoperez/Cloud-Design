@@ -7,7 +7,7 @@
         'mainModule',
         'loginModule',
         'commentsModule',
-        'detailModule'
+        'detailModule',
         'projectModule'
     ]);
 
