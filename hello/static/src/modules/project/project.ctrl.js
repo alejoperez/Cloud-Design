@@ -9,8 +9,8 @@
 
         this.getProjects = function () {
             return projectService.getProjects().then(function (response) {
-                $scope.projects = response.data.proyectos;
-                console.log("asadasda"+response.data.proyectos);
+                $scope.projects = response.data;
+                console.log("asadasda"+response.data);
             }, responseError);
         };
 

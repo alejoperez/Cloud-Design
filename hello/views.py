@@ -30,6 +30,7 @@ def createProject(request):
         proyecto.description = jsonProject.get('description')
         proyecto.image = jsonProject.get('image')
         proyecto.estimated_price= jsonProject.get('estimatedPrice')
+        proyecto.administrador = request.user
         proyecto.save()
 
         return HttpResponse(serializers.serialize("json",{proyecto}))
@@ -48,8 +49,9 @@ def createProject(request):
             # If page is out of range (e.g. 9999), deliver last page of results.
             proyectos = paginator.page(paginator.num_pages)
         data =serializers.serialize("json",proyectos.object_list)
+        return HttpResponse(serializers.serialize("json",proyecto))
 
-        return JsonResponse({"proyectos":data,"numeroPaginas":paginator.num_pages})
+        ##return JsonResponse({"proyectos":data,"numeroPaginas":paginator.num_pages})
 
     if request.method == 'PUT':
         jsonProject = json.loads(request.body.decode('utf-8'))

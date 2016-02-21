@@ -8,15 +8,17 @@
         'loginModule',
         'commentsModule',
         'detailModule',
-        'projectModule'
+        'projectModule',
+        'createModule'
+
     ]);
 
     helpApp.config(['$routeProvider', function ($routeProvider) {
 
         $routeProvider
             .when('/main', {
-                templateUrl: 'static/src/modules/main/main.tpl.html',
-                controller: 'mainCtrl',
+                templateUrl: 'static/src/modules/manager/independents.tpl.html',
+                controller: 'managerCtrl',
                 controllerAs: 'ctrl'
             })
             .when('/profile', {
@@ -49,7 +51,12 @@
                 controller: 'projectCtrl',
                 controllerAs: 'ctrl'
             })
-            .otherwise('/main');
+            .when('/create', {
+                templateUrl: 'static/src/modules/create/create.tpl.html',
+                controller: 'createCtrl',
+                controllerAs: 'ctrl'
+            })
+            .otherwise('/independents');
 
 
 
