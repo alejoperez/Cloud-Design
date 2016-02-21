@@ -10,7 +10,7 @@
         'detailModule',
         'projectModule',
         'createModule',
-        'editModule'
+        'createDesignModule'
 
     ]);
 
@@ -57,9 +57,9 @@
                 controller: 'createCtrl',
                 controllerAs: 'ctrl'
             })
-             .when('/edit', {
-                templateUrl: 'static/src/modules/edit/edit.tpl.html',
-                controller: 'editCtrl',
+            .when('/createDesign', {
+                templateUrl: 'static/src/modules/createDesign/createDesign.tpl.html',
+                controller: 'createDesignCtrl',
                 controllerAs: 'ctrl'
             })
             .otherwise('/main');

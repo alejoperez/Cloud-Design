@@ -5,8 +5,11 @@ from django.core import serializers
 from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
 from django.core.mail import send_mail, EmailMultiAlternatives
-from models import Proyecto
+from models import Proyecto,Design, Designer
 from models import Administrator
+import os
+import time
+from django.core.files.base import ContentFile
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import json
@@ -174,7 +177,48 @@ def logoutUser(request):
     logout(request)
     return JsonResponse({'logout':True})
 
+@csrf_exempt
+def createDesign(request):
+    if request.method == 'POST':
 
+        objs = json.loads(request.body)
+
+        designer = Designer()
+        designer.name = objs['designer_name']
+        designer.lastname = objs['designer_last_name']
+        designer.email = objs['designer_email']
+        designer.save()
+
+        design = Design()
+
+        design.price = objs['price']
+        design.status = 1
+
+        base64_string = objs['imageFile'].encode('utf-8')
+        print objs['imageFile']
+        print base64_string
+
+        filename = str(time.time())+".png"
+
+        # decoding base string to image and saving in to your media root folder
+        fh = open(os.path.join("static/images", filename), "wb")
+        fh.write(bytes(base64_string.decode('base64')))
+        fh.close()
+
+        # saving decoded image to database
+        decoded_image = base64_string.decode('base64')
+        design.imageFile = ContentFile(decoded_image, filename)
+
+        projectQS = Proyecto.objects.filter(pk=int(objs['project_pk']))
+        projectsList = list(projectQS[:1])
+        projectObject = projectsList[0]
+
+        design.project = projectObject
+        design.designer = designer
+
+        design.save()
+
+    return JsonResponse({})
 
 '''
 @csrf_exempt

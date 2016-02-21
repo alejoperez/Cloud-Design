@@ -1,7 +1,8 @@
 from django.contrib import admin
-#from .models import Independent, Job, Comment
+from .models import Design, Proyecto, Designer
+
 
 # Register your models here.
-#admin.site.register(Independent)
-#admin.site.register(Job)
-#admin.site.register(Comment)
+admin.site.register(Design)
+admin.site.register(Proyecto)
+admin.site.register(Designer)
