@@ -15,7 +15,7 @@
 
         this.logOut = function () {
             return mainService.logOut().then(function (response) {
-                window.location.assign('#/independents');
+                window.location.assign('#/main');
                 window.location.reload(true);
             }, responseError);
         };
