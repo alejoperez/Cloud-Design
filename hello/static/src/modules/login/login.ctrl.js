@@ -15,7 +15,7 @@
             return loginService.logIn($scope.user.username,$scope.user.password).then(function (response) {
                 $scope.message = response.data;
                 if($scope.message.message === 'OK'){
-                    window.location.assign('#/main');
+                    window.location.assign('#/project');
                     window.location.reload(true);
                 }else{
                     $scope.error = true;

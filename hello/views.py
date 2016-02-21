@@ -39,10 +39,13 @@ def createProject(request):
      return HttpResponse(serializers.serialize("json",{proyecto}))
 
     if request.method == 'GET':
-        proyecto = Proyecto.objects.all()
-        paginator = Paginator(proyecto, 10) # Show 25 contacts per page
+        #proyecto = Proyecto.objects.all()
+
 
         page = request.GET.get('page')
+        user = request.user
+        proyecto = Proyecto.objects.filter(administrador=user)
+        paginator = Paginator(proyecto, 10) # Show 25 contacts per page
         try:
             proyectos = paginator.page(page)
         except PageNotAnInteger:
