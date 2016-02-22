@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -5,6 +6,8 @@ from django.core import serializers
 from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.core.mail import send_mail, EmailMultiAlternatives
+
+from gettingstarted.settings import BASE_DIR, PROJECT_ROOT
 from models import Proyecto,Design, Designer
 from models import Administrator
 import os
@@ -239,7 +242,7 @@ def createDesign(request):
         filename = str(time.time())+".png"
 
         # decoding base string to image and saving in to your media root folder
-        fh = open(os.path.join("static/images", filename), "wb")
+        fh = open(os.path.join(PROJECT_ROOT+'/static/images', filename), "wb")
         fh.write(bytes(base64_string.decode('base64')))
         fh.close()
 
