@@ -12,5 +12,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^design', hello.views.createDesign, name='design'),
     url(r'^project/(\d+)}', hello.views.getProject, name='getProject'),
+    url(r'^company/(\d+)$', hello.views.getCompanyById, name='companyById'),
+    url(r'^(\w+)/(\d+)$', hello.views.getCompany, name='company'),
 
 ]
