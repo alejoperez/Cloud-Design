@@ -1,7 +1,7 @@
 <div class="container" ng-controller="designCtrl as ctrl" ng-init="ctrl.getDesigns()">
     <div class="col-sm-12">
         <div ng-repeat="record in designs">
-            <div class="col-md-4 col-sm-6 col-lg-4 well">
+            <div class="col-md-4 col-sm-6 col-lg-4 well" ng-if="record.fields.status === 2">
                 <div class="caption" >
                     <p align="center"><strong>DISEÑO</strong></p>
                 </div>
@@ -20,9 +20,6 @@
 
                     <p><strong>Creada: </strong> {{record.fields.created_date}}</p>
                     <p><strong>Ruta: </strong> {{record.fields.imageFile}}</p>
-                    <p><strong>Nombres: </strong> {{record.fields.designer.name}}</p>
-                    <p><strong>Apellidos: </strong> {{record.fields.designer.lastname}}</p>
-                    <p><strong>Email: </strong> {{record.fields.designer.email}}</p>
                 </div>
             </div>
         </div>

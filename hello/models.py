@@ -24,7 +24,7 @@ class Proyecto(models.Model):
 class Designer(models.Model):
     name = models.CharField(max_length=50,blank=True)
     lastname = models.CharField(max_length=50,blank=True)
-    email = models.EmailField(max_length=70,blank=True, null= True, unique= True)
+    email = models.EmailField(max_length=70,blank=True, null= True)
     def natural_key(self):
         object = {
             'email':self.email,

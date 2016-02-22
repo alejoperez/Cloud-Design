@@ -26,10 +26,9 @@ def index(request):
 
 @csrf_exempt
 def getProject(request,idProject):
-
+    print 'asklnsalkndlkdlasnlsn' +idProject
     if request.method == 'GET':
-        jsonProject = json.loads(request.body.decode('utf-8'))
-        proyecto = Proyecto.objects.get(pk=idProject)
+        proyecto = Proyecto.objects.filter(pk=idProject)
         return HttpResponse(serializers.serialize("json",proyecto))
 
 @csrf_exempt
