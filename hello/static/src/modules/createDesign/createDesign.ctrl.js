@@ -21,6 +21,7 @@
                 'project_pk':$routeParams.projectId
             }).then(function (response) {
                 console.log(response);
+                window.alert('Hemos recibido tu diseño y lo estamos procesado para que sea publicado')
                 $scope.message = response.data;
                 window.location.assign('#/design/'+$routeParams.projectId);
                 window.location.reload(true);
