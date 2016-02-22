@@ -1,15 +1,14 @@
+import json
+
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from django.core import serializers
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from django.core import serializers
-from django.contrib.auth.models import User
-from django.http import HttpResponse, JsonResponse
-from django.core.mail import send_mail, EmailMultiAlternatives
+from models import Administrator, Design, Designer
 from models import Proyecto
-from models import Administrator
-
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-import json
 
 
 # Create your views here.
@@ -173,8 +172,6 @@ def isLoggedUser(request):
 def logoutUser(request):
     logout(request)
     return JsonResponse({'logout':True})
-
-
 
 '''
 @csrf_exempt
