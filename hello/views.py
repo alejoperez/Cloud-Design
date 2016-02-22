@@ -31,7 +31,15 @@ def getProject(request,idProject):
 
 @csrf_exempt
 def getCompany(request,companyName,companyId):
+    print companyName,
     return HttpResponseRedirect("http://127.0.0.1:8000/#/company/"+companyName+"/"+companyId)
+
+@csrf_exempt
+def getDesignsByProject(request,projectId):
+    print projectId
+    designs = Design.objects.filter(project__pk=projectId).order_by('-created_date')
+    return HttpResponse(serializers.serialize("json",designs,use_natural_foreign_keys=True, use_natural_primary_keys=True))
+
 
 @csrf_exempt
 def getCompanyById(request,userId):
