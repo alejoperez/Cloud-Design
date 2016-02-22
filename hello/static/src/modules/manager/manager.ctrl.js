@@ -30,7 +30,9 @@
                 'email':angular.element('#email').val(),
                 'password':angular.element('#password').val()
             }).then(function (response) {
-                $window.location.href = '/#/independents';
+                console.log(response)
+                $window.location.href = '/#/main';
+                $window.alert('La página de su empresa es '+ response.data.url)
             }, responseError);
         };
 

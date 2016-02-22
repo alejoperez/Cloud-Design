@@ -1,14 +1,21 @@
-import json
-
+from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
-from django.core import serializers
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from models import Administrator, Design, Designer
-from models import Proyecto
+from django.core import serializers
+from django.contrib.auth.models import User
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
+from django.core.mail import send_mail, EmailMultiAlternatives
+
+from gettingstarted.settings import BASE_DIR, PROJECT_ROOT
+from models import Proyecto,Design, Designer
+from models import Administrator
+import os
+import time
+from django.core.files.base import ContentFile
+
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import json
 
 
 # Create your views here.
@@ -17,6 +24,44 @@ from models import Proyecto
 def index(request):
     return render(request, 'index.html')
 
+@csrf_exempt
+def getProject(request,idProject):
+
+    if request.method == 'GET':
+        jsonProject = json.loads(request.body.decode('utf-8'))
+        proyecto = Proyecto.objects.get(pk=idProject)
+        return HttpResponse(serializers.serialize("json",proyecto))
+
+@csrf_exempt
+def getCompany(request,companyName,companyId):
+    print companyName,
+    return HttpResponseRedirect("http://127.0.0.1:8000/#/company/"+companyName+"/"+companyId)
+
+@csrf_exempt
+def getDesignsByProject(request,projectId):
+    print projectId
+    designs = Design.objects.filter(project__pk=projectId).order_by('-created_date')
+    return HttpResponse(serializers.serialize("json",designs,use_natural_foreign_keys=True, use_natural_primary_keys=True))
+
+
+@csrf_exempt
+def getCompanyById(request,userId):
+    if request.method == 'GET':
+
+        page = request.GET.get('page')
+        user = request.user
+        proyecto = Proyecto.objects.filter(administrador__pk=userId)
+        paginator = Paginator(proyecto, 10) # Show 25 contacts per page
+        try:
+            proyectos = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            proyectos = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            proyectos = paginator.page(paginator.num_pages)
+        data =serializers.serialize("json",proyectos.object_list)
+        return HttpResponse(serializers.serialize("json",proyecto))
 
 @csrf_exempt
 def createProject(request):
@@ -64,7 +109,6 @@ def createProject(request):
         proyecto = Proyecto.objects.get(pk=jsonProject.get('pk'))
         proyecto.name = jsonProject.get('name')
         proyecto.description = jsonProject.get('description')
-        proyecto.estimated_price= jsonProject.get('estimatedPrice')
         proyecto.image = jsonProject.get('image')
         proyecto.save()
 
@@ -113,12 +157,13 @@ def registerManager(request):
         manager.user=userModel
         manager.save()
 
-        manager.url = request.get_raw_uri().replace('register',manager.company+'/'+str(manager.id))
+        myUrl = request.get_raw_uri().replace('register', manager.company + '/' + str(manager.id))
+        manager.url = myUrl
         manager.save()
         print 'Se crea el manager'
 
 
-    return HttpResponse(status=200)
+        return JsonResponse({'url':myUrl})
 
 @csrf_exempt
 def loginUser(request):
@@ -172,6 +217,49 @@ def isLoggedUser(request):
 def logoutUser(request):
     logout(request)
     return JsonResponse({'logout':True})
+
+@csrf_exempt
+def createDesign(request):
+    if request.method == 'POST':
+
+        objs = json.loads(request.body)
+
+        designer = Designer()
+        designer.name = objs['designer_name']
+        designer.lastname = objs['designer_last_name']
+        designer.email = objs['designer_email']
+        designer.save()
+
+        design = Design()
+
+        design.price = objs['price']
+        design.status = 1
+
+        base64_string = objs['imageFile'].encode('utf-8')
+        print objs['imageFile']
+        print base64_string
+
+        filename = str(time.time())+".png"
+
+        # decoding base string to image and saving in to your media root folder
+        fh = open(os.path.join(PROJECT_ROOT+'/static/images', filename), "wb")
+        fh.write(bytes(base64_string.decode('base64')))
+        fh.close()
+
+        # saving decoded image to database
+        decoded_image = base64_string.decode('base64')
+        design.imageFile = ContentFile(decoded_image, filename)
+
+        projectQS = Proyecto.objects.filter(pk=int(objs['project_pk']))
+        projectsList = list(projectQS[:1])
+        projectObject = projectsList[0]
+
+        design.project = projectObject
+        design.designer = designer
+
+        design.save()
+
+    return JsonResponse({})
 
 '''
 @csrf_exempt

@@ -9,7 +9,11 @@
         'commentsModule',
         'detailModule',
         'projectModule',
-        'createModule'
+        'createModule',
+        'createDesignModule',
+        'editModule',
+        'designModule',
+        'companyModule'
 
     ]);
 
@@ -56,9 +60,27 @@
                 controller: 'createCtrl',
                 controllerAs: 'ctrl'
             })
+            .when('/createDesign/:projectId', {
+                templateUrl: 'static/src/modules/createDesign/createDesign.tpl.html',
+                controller: 'createDesignCtrl',
+                controllerAs: 'ctrl'
+            })
+            .when('/edit/:idProject', {
+                templateUrl: 'static/src/modules/edit/edit.tpl.html',
+                controller: 'editCtrl',
+                controllerAs: 'ctrl'
+            })
+            .when('/design/:projectId', {
+                templateUrl: 'static/src/modules/design/design.tpl.html',
+                controller: 'designCtrl',
+                controllerAs: 'ctrl'
+            })
+            .when('/company/:companyName/:companyId', {
+                templateUrl: 'static/src/modules/company/company.tpl.html',
+                controller: 'companyCtrl',
+                controllerAs: 'ctrl'
+            })
             .otherwise('/main');
-
-
 
     }]);
 })(window.angular);

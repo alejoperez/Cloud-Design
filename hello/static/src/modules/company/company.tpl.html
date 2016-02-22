@@ -1,4 +1,4 @@
-<div class="container" ng-controller="projectCtrl as ctrl" ng-init="ctrl.getProjects()">
+<div class="container" ng-controller="companyCtrl as ctrl" ng-init="ctrl.getProjects()">
     <div class="col-sm-12">
         <div ng-repeat="record in projects">
             <div class="col-md-4 col-sm-6 col-lg-4 well">
@@ -19,9 +19,6 @@
                       <ul class="dropdown-menu">
                         <li><a href="#/design/{{ record.pk }}">Ver Diseños</a></li>
                         <li><a href="#/createDesign/{{ record.pk }}">Publicar mi Diseño</a></li>
-                        <li><a href=#/edit/{{record.pk}}">Editar</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li ng-click="ctrl.deleteProject(record.pk)"><a href="#/project">Eliminar</a></li>
                       </ul>
                     </div>
                 </div>

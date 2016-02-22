@@ -25,6 +25,13 @@ class Designer(models.Model):
     name = models.CharField(max_length=50,blank=True)
     lastname = models.CharField(max_length=50,blank=True)
     email = models.EmailField(max_length=70,blank=True, null= True, unique= True)
+    def natural_key(self):
+        object = {
+            'email':self.email,
+            'name':self.name,
+            'lastname':self.lastname
+        }
+        return object
 
 class Design(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
@@ -32,4 +39,4 @@ class Design(models.Model):
     price = models.BigIntegerField(blank=False, null=False)
     imageFile = models.ImageField(upload_to='images',null=True)
     designer = models.ForeignKey(Designer,null=True)
-    project = models.OneToOneField(Proyecto,null=True)
+    project = models.ForeignKey(Proyecto,null=True)
