@@ -13,7 +13,7 @@ urlpatterns = [
     url(r'^logout', hello.views.logoutUser, name='logout'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^design', hello.views.createDesign, name='design'),
-    url(r'^project/(\d+)$', hello.views.getProject, name='getProject'),
+    url(r'^getProject/(\d+)$', hello.views.getProject, name='getProject'),
     url(r'^company/(\d+)$', hello.views.getCompanyById, name='companyById'),
     url(r'^getDesigns/(\d+)$', hello.views.getDesignsByProject, name='getDesignsByProject'),
     url(r'^(\w+)/(\d+)$', hello.views.getCompany, name='company'),
