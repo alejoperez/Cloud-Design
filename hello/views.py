@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from django.contrib.auth.models import User
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.core.mail import send_mail, EmailMultiAlternatives
 from models import Proyecto,Design, Designer
 from models import Administrator
@@ -21,6 +21,28 @@ import json
 def index(request):
     return render(request, 'index.html')
 
+@csrf_exempt
+def getCompany(request,companyName,companyId):
+    return HttpResponseRedirect("http://127.0.0.1:8000/#/company/"+companyName+"/"+companyId)
+
+@csrf_exempt
+def getCompanyById(request,userId):
+    if request.method == 'GET':
+
+        page = request.GET.get('page')
+        user = request.user
+        proyecto = Proyecto.objects.filter(administrador__pk=userId)
+        paginator = Paginator(proyecto, 10) # Show 25 contacts per page
+        try:
+            proyectos = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            proyectos = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            proyectos = paginator.page(paginator.num_pages)
+        data =serializers.serialize("json",proyectos.object_list)
+        return HttpResponse(serializers.serialize("json",proyecto))
 
 @csrf_exempt
 def createProject(request):

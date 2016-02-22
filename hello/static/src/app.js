@@ -10,7 +10,8 @@
         'detailModule',
         'projectModule',
         'createModule',
-        'createDesignModule'
+        'createDesignModule',
+        'companyModule'
 
     ]);
 
@@ -60,6 +61,11 @@
             .when('/createDesign', {
                 templateUrl: 'static/src/modules/createDesign/createDesign.tpl.html',
                 controller: 'createDesignCtrl',
+                controllerAs: 'ctrl'
+            })
+            .when('/company/:companyName/:companyId', {
+                templateUrl: 'static/src/modules/company/company.tpl.html',
+                controller: 'companyCtrl',
                 controllerAs: 'ctrl'
             })
             .otherwise('/main');
