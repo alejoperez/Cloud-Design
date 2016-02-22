@@ -12,6 +12,3 @@ def updateInProgressDesigns():
         design.status=2
         design.save()
         emailUtils.sendMailImageProccesed(design.designer.email)
-
-
-
