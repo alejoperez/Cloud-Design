@@ -21,6 +21,15 @@ import json
 def index(request):
     return render(request, 'index.html')
 
+@csrf_exempt
+def getProject(request,idProject):
+
+    if request.method == 'GET':
+        jsonProject = json.loads(request.body.decode('utf-8'))
+        proyecto = Proyecto.objects.get(pk=idProject)
+        return HttpResponse(serializers.serialize("json",proyecto))
+
+
 
 @csrf_exempt
 def createProject(request):

@@ -10,7 +10,8 @@
         'detailModule',
         'projectModule',
         'createModule',
-        'createDesignModule'
+        'createDesignModule',
+        'editModule'
 
     ]);
 
@@ -62,9 +63,12 @@
                 controller: 'createDesignCtrl',
                 controllerAs: 'ctrl'
             })
+            .when('/edit/:idProject', {
+                templateUrl: 'static/src/modules/edit/edit.tpl.html',
+                controller: 'editCtrl',
+                controllerAs: 'ctrl'
+            })
             .otherwise('/main');
-
-
 
     }]);
 })(window.angular);
