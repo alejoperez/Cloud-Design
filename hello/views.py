@@ -98,7 +98,6 @@ def createProject(request):
         proyecto = Proyecto.objects.get(pk=jsonProject.get('pk'))
         proyecto.name = jsonProject.get('name')
         proyecto.description = jsonProject.get('description')
-        proyecto.estimated_price= jsonProject.get('estimatedPrice')
         proyecto.image = jsonProject.get('image')
         proyecto.save()
 
