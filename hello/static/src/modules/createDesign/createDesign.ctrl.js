@@ -3,7 +3,7 @@
 
 
 
-    mod.controller('createDesignCtrl', ['$scope', 'createDesignService', function ($scope, createDesignService) {
+    mod.controller('createDesignCtrl', ['$scope', 'createDesignService','$routeParams', function ($scope, createDesignService,$routeParams) {
 
         $scope.error = false;
 
@@ -18,10 +18,12 @@
                 'designer_email':angular.element('#designer_email').val(),
                 'price':angular.element('#price').val(),
                 'imageFile':angular.element('#fileString').val(),
-                'project_pk':1
+                'project_pk':$routeParams.projectId
             }).then(function (response) {
                 console.log(response);
                 $scope.message = response.data;
+                window.location.assign('#/design/'+$routeParams.projectId);
+                window.location.reload(true);
             }, responseError);
         };
 

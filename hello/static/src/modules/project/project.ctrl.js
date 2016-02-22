@@ -7,6 +7,12 @@
             console.log(response);
         }
 
+        this.deleteProject = function (pk) {
+            return projectService.deleteProject(pk).then(function (response) {
+                window.location.reload(true);
+            }, responseError);
+        };
+
         this.getProjects = function () {
             return projectService.getProjects().then(function (response) {
                 $scope.projects = response.data;

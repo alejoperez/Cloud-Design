@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -5,6 +6,8 @@ from django.core import serializers
 from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.core.mail import send_mail, EmailMultiAlternatives
+
+from gettingstarted.settings import BASE_DIR, PROJECT_ROOT
 from models import Proyecto,Design, Designer
 from models import Administrator
 import os
@@ -31,7 +34,15 @@ def getProject(request,idProject):
 
 @csrf_exempt
 def getCompany(request,companyName,companyId):
+    print companyName,
     return HttpResponseRedirect("http://127.0.0.1:8000/#/company/"+companyName+"/"+companyId)
+
+@csrf_exempt
+def getDesignsByProject(request,projectId):
+    print projectId
+    designs = Design.objects.filter(project__pk=projectId).order_by('-created_date')
+    return HttpResponse(serializers.serialize("json",designs,use_natural_foreign_keys=True, use_natural_primary_keys=True))
+
 
 @csrf_exempt
 def getCompanyById(request,userId):
@@ -146,12 +157,13 @@ def registerManager(request):
         manager.user=userModel
         manager.save()
 
-        manager.url = request.get_raw_uri().replace('register',manager.company+'/'+str(manager.id))
+        myUrl = request.get_raw_uri().replace('register', manager.company + '/' + str(manager.id))
+        manager.url = myUrl
         manager.save()
         print 'Se crea el manager'
 
 
-    return HttpResponse(status=200)
+        return JsonResponse({'url':myUrl})
 
 @csrf_exempt
 def loginUser(request):
@@ -230,7 +242,7 @@ def createDesign(request):
         filename = str(time.time())+".png"
 
         # decoding base string to image and saving in to your media root folder
-        fh = open(os.path.join("static/images", filename), "wb")
+        fh = open(os.path.join(PROJECT_ROOT+'/static/images', filename), "wb")
         fh.write(bytes(base64_string.decode('base64')))
         fh.close()
 
