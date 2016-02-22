@@ -158,12 +158,13 @@ def registerManager(request):
         manager.user=userModel
         manager.save()
 
-        manager.url = request.get_raw_uri().replace('register',manager.company+'/'+str(manager.id))
+        myUrl = request.get_raw_uri().replace('register', manager.company + '/' + str(manager.id))
+        manager.url = myUrl
         manager.save()
         print 'Se crea el manager'
 
 
-    return HttpResponse(status=200)
+        return JsonResponse({'url':myUrl})
 
 @csrf_exempt
 def loginUser(request):
