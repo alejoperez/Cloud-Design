@@ -60,7 +60,7 @@
                 controller: 'createCtrl',
                 controllerAs: 'ctrl'
             })
-            .when('/createDesign', {
+            .when('/createDesign/:projectId', {
                 templateUrl: 'static/src/modules/createDesign/createDesign.tpl.html',
                 controller: 'createDesignCtrl',
                 controllerAs: 'ctrl'
