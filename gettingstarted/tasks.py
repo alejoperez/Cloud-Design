@@ -1,6 +1,6 @@
 import celeryApp
 from hello.models import Administrator, Design, Designer
-from hello.src import imageUtils, emailUtils
+from hello.src import ImageUtils, EmailUtils
 
 
 @celeryApp.app.task
@@ -8,7 +8,7 @@ def updateInProgressDesigns():
     designQS = Design.objects.filter(status=1)
     designList = list(designQS[:1])
     for design in designList:
-        imageUtils.resizeImage(design)
+        ImageUtils.resizeImage(design)
         design.status=2
         design.save()
-        emailUtils.sendMailImageProccesed(design.designer.email)
+        EmailUtils.sendMailImageProccesed(design.designer.email)
