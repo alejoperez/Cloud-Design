@@ -6,7 +6,7 @@
         this.getDesigns = function (projectId) {
             return $http({
                 method: 'GET',
-                url: 'http://127.0.0.1:8000/getDesigns/'+projectId
+                url: '/getDesigns/'+projectId
             });
         };
 

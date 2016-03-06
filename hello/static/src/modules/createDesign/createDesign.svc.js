@@ -6,8 +6,7 @@
         this.createDesign = function (data) {
             return $http({
                 method: 'POST',
-                //url: 'https://ancient-plains-90032.herokuapp.com/login',
-                url: 'http://127.0.0.1:8000/design',
+                url: '/design',
                 data: data
             });
         };

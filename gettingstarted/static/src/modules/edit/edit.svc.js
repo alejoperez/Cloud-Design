@@ -9,14 +9,14 @@
        this.getProject = function (idProject) {
             return $http({
                 method: 'GET',
-                url: 'http://127.0.0.1:8000/getProject/'+idProject
+                url: '/getProject/'+idProject
             });
         }
 
           this.editProject = function (project) {
             return $http({
                 method: 'PUT',
-                url: 'http://127.0.0.1:8000/project',
+                url: '/project',
                 data:{
                     name: project.fields.name,
                     description: project.fields.description,

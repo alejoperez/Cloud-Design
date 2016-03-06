@@ -6,8 +6,6 @@
         'profileModule',
         'mainModule',
         'loginModule',
-        'commentsModule',
-        'detailModule',
         'projectModule',
         'createModule',
         'createDesignModule',
@@ -38,16 +36,6 @@
             .when('/register', {
                 templateUrl: 'static/src/modules/manager/registration.tpl.html',
                 controller: 'managerCtrl',
-                controllerAs: 'ctrl'
-            })
-            .when('/comments/:idIndependent', {
-                templateUrl: 'static/src/modules/comments/comments.tpl.html',
-                controller: 'commentsCtrl',
-                controllerAs: 'ctrl'
-            })
-            .when('/detail/:idIndependent', {
-                templateUrl: 'static/src/modules/detail/detail.tpl.html',
-                controller: 'detailCtrl',
                 controllerAs: 'ctrl'
             })
             .when('/project', {
