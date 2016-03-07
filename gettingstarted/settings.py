@@ -90,20 +90,15 @@ DATABASES = {
    }
 }
 
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-# Host for sending e-mail.
-#EMAIL_HOST = 'smtp-mail.outlook.com'
-EMAIL_HOST = 'smtp.gmail.com'
-
-# Port for sending e-mail.
-EMAIL_PORT = 587
-
-# Optional SMTP authentication information for EMAIL_HOST.
-EMAIL_HOST_USER = 'mariocloud2016@gmail.com'
-EMAIL_HOST_PASSWORD = 'alejandro2016'
 EMAIL_USE_TLS = True
-
+EMAIL_HOST = 'email-smtp.us-west-2.amazonaws.com'
+EMAIL_PORT = os.environ['EMAIL_PORT']
+EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+DEFAULT_FROM_EMAIL = os.environ['DEFAULT_FROM_EMAIL']
+SERVER_EMAIL = os.environ['SERVER_EMAIL']
 
 
 # Password validation
@@ -161,6 +156,6 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-BROKER_URL = 'redis://127.0.0.1:6379/0'
+BROKER_URL = os.environ['BROKER_URL']
 BROKER_TRANSPORT = 'redis'
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
