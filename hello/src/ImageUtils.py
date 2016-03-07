@@ -1,10 +1,12 @@
+from StringIO import StringIO
+
 from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
 from hello.models import Design
 
 def resizeImage(design):
-    image = Image.open(design.imageFile)
+    image = Image.open(StringIO(str(design.imageFile)))
     image = image.resize((800, 600), Image.ANTIALIAS)
     draw = ImageDraw.Draw(image)
     #font = ImageFont.truetype("arial.ttf", 15)
