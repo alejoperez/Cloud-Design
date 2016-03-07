@@ -1,4 +1,4 @@
-from StringIO import StringIO
+import StringIO
 
 from PIL import Image
 from PIL import ImageFont
