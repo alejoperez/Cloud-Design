@@ -6,7 +6,9 @@ from PIL import ImageDraw
 from hello.models import Design
 
 def resizeImage(design):
-    image = Image.open(StringIO(str(design.imageFile)))
+    buff = StringIO.StringIO()
+    buff.write(open(design.imageFile, 'rb').read())
+    image = Image.open(buff)
     image = image.resize((800, 600), Image.ANTIALIAS)
     draw = ImageDraw.Draw(image)
     #font = ImageFont.truetype("arial.ttf", 15)
