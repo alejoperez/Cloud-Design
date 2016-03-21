@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'hello',
     'corsheaders',
     'djcelery',
+    'storages',
 )
 
 MIDDLEWARE_CLASSES = (
