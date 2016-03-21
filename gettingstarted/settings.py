@@ -160,3 +160,10 @@ CORS_ORIGIN_ALLOW_ALL = True
 BROKER_URL = os.environ['BROKER_URL']
 BROKER_TRANSPORT = 'redis'
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+AWS_S3_SECURE_URLS = False       # use http instead of https
+AWS_QUERYSTRING_AUTH = False     # don't add complex authentication-related query parameters for requests
+AWS_S3_ACCESS_KEY_ID = os.environ['S3_ACCESS_KEY_ID']     # enter your access key id
+AWS_S3_SECRET_ACCESS_KEY = os.environ['S3_SECRET_ACCESS_KEY'] # enter your secret access key
+AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
