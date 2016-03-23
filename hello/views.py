@@ -44,7 +44,7 @@ def getDesignsByProject(request,projectId):
         return HttpResponse(serializers.serialize("json",cache.get('designs'),use_natural_foreign_keys=True, use_natural_primary_keys=True))
 
     designs = Design.objects.filter(project__pk=projectId).order_by('-created_date')
-    cache.set('designs', designs, 60*15)
+    cache.set('designs', designs, 30)
     print 'no cache'
     return HttpResponse(serializers.serialize("json",designs,use_natural_foreign_keys=True, use_natural_primary_keys=True))
 
