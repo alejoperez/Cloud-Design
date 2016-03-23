@@ -110,7 +110,7 @@ def createProject(request):
             proyectos = paginator.page(paginator.num_pages)
         data =serializers.serialize("json",proyectos.object_list)
 
-        cache.set('projects', proyecto, 60*15)
+        cache.set('projects', proyecto, 60)
         print 'no cache'
         return HttpResponse(serializers.serialize("json",proyecto))
 
