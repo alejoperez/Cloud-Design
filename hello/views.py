@@ -16,7 +16,7 @@ from django.core.files.base import ContentFile
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import json
-
+import aws_sqs
 
 # Create your views here.
 
@@ -258,7 +258,19 @@ def createDesign(request):
 
         design.save()
 
+        aws_sqs.sendMessage(design)
+
     return JsonResponse({})
+
+@csrf_exempt
+def getSQSMessages(request):
+
+    if request.method == 'GET':
+
+        return JsonResponse(aws_sqs.getMessages(),safe=False)
+
+
+
 
 '''
 @csrf_exempt

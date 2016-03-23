@@ -17,5 +17,6 @@ urlpatterns = [
     url(r'^company/(\d+)$', hello.views.getCompanyById, name='companyById'),
     url(r'^getDesigns/(\d+)$', hello.views.getDesignsByProject, name='getDesignsByProject'),
     url(r'^(\w+)/(\d+)$', hello.views.getCompany, name='company'),
+    url(r'^aws-messages/', hello.views.getSQSMessages, name='getSQSMessages'),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
