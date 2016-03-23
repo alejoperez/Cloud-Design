@@ -168,3 +168,9 @@ AWS_S3_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']     # enter your access k
 AWS_S3_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY'] # enter your secret access key
 AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': 'andes-cloud.0wgyvb.cfg.usw2.cache.amazonaws.com:11211',
+    }
+}

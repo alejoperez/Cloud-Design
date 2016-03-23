@@ -1,13 +1,12 @@
-from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
+from django.core.cache import cache
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
-from django.core.mail import send_mail, EmailMultiAlternatives
 
-from gettingstarted.settings import BASE_DIR, PROJECT_ROOT
+from gettingstarted.settings import PROJECT_ROOT
 from models import Proyecto,Design, Designer
 from models import Administrator
 import os
@@ -84,6 +83,9 @@ def createProject(request):
     if request.method == 'GET':
         #proyecto = Proyecto.objects.all()
 
+        if cache.get('projects'):
+            print cache.get('projects')
+            return HttpResponse(serializers.serialize("json",cache.get('projects')))
 
         page = request.GET.get('page')
         user = request.user
@@ -98,6 +100,9 @@ def createProject(request):
             # If page is out of range (e.g. 9999), deliver last page of results.
             proyectos = paginator.page(paginator.num_pages)
         data =serializers.serialize("json",proyectos.object_list)
+
+        cache.set('projects', proyecto, 60*15)
+        print 'no cache'
         return HttpResponse(serializers.serialize("json",proyecto))
 
         ##return JsonResponse({"proyectos":data,"numeroPaginas":paginator.num_pages})
