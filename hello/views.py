@@ -27,7 +27,16 @@ def index(request):
 def getProject(request,idProject):
     print 'asklnsalkndlkdlasnlsn' +idProject
     if request.method == 'GET':
+        cache_project_key = 'proyecto/' + str(idProject)
+
+        if cache.get(cache_project_key):
+            print 'cache de' + cache_project_key
+            return HttpResponse(serializers.serialize("json",cache.get(cache_project_key)))
+
         proyecto = Proyecto.objects.filter(pk=idProject)
+
+        cache.set(cache_project_key, proyecto, 60 * 15)
+        print 'no hay cache de' + cache_project_key
         return HttpResponse(serializers.serialize("json",proyecto))
 
 @csrf_exempt
