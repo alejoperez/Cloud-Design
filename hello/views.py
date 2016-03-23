@@ -38,7 +38,14 @@ def getCompany(request,companyName,companyId):
 @csrf_exempt
 def getDesignsByProject(request,projectId):
     print projectId
+
+    if cache.get('designs'):
+        print cache.get('designs')
+        return HttpResponse(serializers.serialize("json",cache.get('designs'),use_natural_foreign_keys=True, use_natural_primary_keys=True))
+
     designs = Design.objects.filter(project__pk=projectId).order_by('-created_date')
+    cache.set('designs', designs, 60*15)
+    print 'no cache'
     return HttpResponse(serializers.serialize("json",designs,use_natural_foreign_keys=True, use_natural_primary_keys=True))
 
 
