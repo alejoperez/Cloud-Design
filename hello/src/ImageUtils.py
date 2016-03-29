@@ -7,7 +7,7 @@ from hello.models import Design
 
 def resizeImage(design):
     buff = StringIO.StringIO()
-    buff.write(open(str(design.imageFile), 'rb').read())
+    buff.write(open(str('https://s3-us-west-2.amazonaws.com/cloud-images-andes/'+design.imageFile), 'rb').read())
     image = Image.open(buff)
     image = image.resize((800, 600), Image.ANTIALIAS)
     draw = ImageDraw.Draw(image)
