@@ -21,4 +21,7 @@ def resizeImage(design):
         draw.text((350, 570),str(design.designer.name)+' '+str(design.created_date),(255,255,255))
         image.save(str(design.imageFile).replace('.jpg','_M.png').replace('.jpeg','_M.png').replace('.JPG','_M.png').replace('.JPEG','_M.png').replace('.png','_M.png'), quality=90)
     except IOError as e:
-        print ("asd")
+        print ("******************************")
+        print ("******************************")
+        print ("******************************")
+        print ("******************************")

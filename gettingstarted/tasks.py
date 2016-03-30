@@ -8,7 +8,7 @@ def updateInProgressDesigns():
     designQS = Design.objects.filter(status=1)
     designList = list(designQS)
     for design in designList:
-        ImageUtils.resizeImage(design)
+        #ImageUtils.resizeImage(design)
         design.status=2
         design.save()
         EmailUtils.sendMailImageProccesed(design.designer.email)
