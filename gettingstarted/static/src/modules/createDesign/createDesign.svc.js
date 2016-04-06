@@ -6,7 +6,7 @@
         this.createDesign = function (data) {
             return $http({
                 method: 'POST',
-                url: '/design',
+                url: 'http://ec2-52-24-205-238.us-west-2.compute.amazonaws.com/design',
                 data: data
             });
         };

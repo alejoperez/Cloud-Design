@@ -241,7 +241,7 @@ def createDesign(request):
         filename = str(time.time())+".png"
 
         # decoding base string to image and saving in to your media root folder
-        fh = open(os.path.join(PROJECT_ROOT+'/static/images', filename), "wb")
+        fh = open(os.path.join(PROJECT_ROOT+'/staticfiles/images', filename), "wb")
         fh.write(bytes(base64_string.decode('base64')))
         fh.close()
 
