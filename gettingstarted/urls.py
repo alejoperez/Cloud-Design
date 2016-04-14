@@ -18,5 +18,6 @@ urlpatterns = [
     url(r'^getDesigns/(\d+)$', hello.views.getDesignsByProject, name='getDesignsByProject'),
     url(r'^(\w+)/(\d+)$', hello.views.getCompany, name='company'),
     url(r'^aws-messages/', hello.views.getSQSMessages, name='getSQSMessages'),
+    url(r'^loaderio-a7d8ae17b876b73e0dd0625a57c0db6c/', hello.views.loader, name='loaderio'),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

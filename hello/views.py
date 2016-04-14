@@ -20,6 +20,11 @@ import aws_sqs
 # Create your views here.
 
 @csrf_exempt
+def loader(request):
+    return render(request,'loaderio-a7d8ae17b876b73e0dd0625a57c0db6c.txt')
+
+
+@csrf_exempt
 def index(request):
     return render(request, 'index.html')
 
