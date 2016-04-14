@@ -171,6 +171,6 @@ AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': 'andes-cloud.0wgyvb.cfg.usw2.cache.amazonaws.com:11211',
+        'LOCATION': 'pub-memcache-17008.us-east-1-2.1.ec2.garantiadata.com:17008',
     }
 }
