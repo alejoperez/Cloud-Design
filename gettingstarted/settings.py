@@ -170,7 +170,11 @@ AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': 'pub-memcache-17008.us-east-1-2.1.ec2.garantiadata.com:17008',
+        'BACKEND': 'django_bmemcached.memcached.BMemcached',
+        'LOCATION': os.environ['MEMCACHEDCLOUD_SERVERS'].split(','),
+        'OPTIONS': {
+                    'username': os.environ['MEMCACHEDCLOUD_USERNAME'],
+                    'password': os.environ['MEMCACHEDCLOUD_PASSWORD']
+            }
     }
 }
