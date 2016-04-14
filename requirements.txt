@@ -11,6 +11,7 @@ django-bmemcached==0.2.3
 django-celery==3.1.17
 django-cors-headers==1.1.0
 django-mongodb-engine==0.6.0
+django-redis-cache==1.6.5
 django-ses==0.7.0
 django-storages==1.4
 djangotoolbox==1.8.0
@@ -31,6 +32,7 @@ python-binary-memcached==0.24.6
 python-dateutil==2.5.1
 python-memcached==1.57
 pytz==2015.7
+redis==2.10.5
 selenium==2.53.1
 six==1.10.0
 virtualenv==14.0.5

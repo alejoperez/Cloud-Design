@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 import os
 import dj_database_url
+import urlparse
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -168,13 +169,14 @@ AWS_S3_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']     # enter your access k
 AWS_S3_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY'] # enter your secret access key
 AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
 
+redis_url = urlparse.urlparse(os.environ['BROKER_URL'])
 CACHES = {
-    'default': {
-        'BACKEND': 'django_bmemcached.memcached.BMemcached',
-        'LOCATION': os.environ['MEMCACHEDCLOUD_SERVERS'].split(','),
-        'OPTIONS': {
-                    'username': os.environ['MEMCACHEDCLOUD_USERNAME'],
-                    'password': os.environ['MEMCACHEDCLOUD_PASSWORD']
-            }
+    "default": {
+         "BACKEND": "redis_cache.RedisCache",
+         "LOCATION": "{0}:{1}".format(redis_url.hostname, redis_url.port),
+         "OPTIONS": {
+             "PASSWORD": redis_url.password,
+             "DB": 0,
+         }
     }
 }
