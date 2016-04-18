@@ -170,6 +170,8 @@ AWS_S3_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']     # enter your access k
 AWS_S3_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY'] # enter your secret access key
 AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
 
+#HIREfire
+HIREFIRE_PROCS = []
 
 redis_url = urlparse.urlparse(os.environ['BROKER_URL'])
 CACHES = {
