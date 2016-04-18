@@ -54,6 +54,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'hirefire.contrib.django.middleware.HireFireMiddleware',
 )
 
 ROOT_URLCONF = 'gettingstarted.urls'
@@ -168,6 +169,7 @@ AWS_QUERYSTRING_AUTH = False     # don't add complex authentication-related quer
 AWS_S3_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']     # enter your access key id
 AWS_S3_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY'] # enter your secret access key
 AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
+
 
 redis_url = urlparse.urlparse(os.environ['BROKER_URL'])
 CACHES = {
