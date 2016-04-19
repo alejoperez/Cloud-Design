@@ -93,7 +93,7 @@ DATABASES = {
    }
 }
 
-
+'''
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'email-smtp.us-west-2.amazonaws.com'
@@ -102,7 +102,10 @@ EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
 EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 DEFAULT_FROM_EMAIL = os.environ['DEFAULT_FROM_EMAIL']
 SERVER_EMAIL = os.environ['SERVER_EMAIL']
+'''
 
+EMAIL_BACKEND = 'sgbackend.SendGridBackend'
+SENDGRID_API_KEY = os.environ['SENDGRID_APIKEY']
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
